@@ -1,0 +1,86 @@
+@import "../../styles/variables.scss";
+:host {
+  display: block;
+  padding: 10px;
+  color: $regularTextColor;
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    mat-form-field {
+      width: 100%;
+      button:first-child {
+        margin-right: 3px;
+      }
+      button {
+        border: none;
+        background-color: $secondary;
+      }
+      button:active {
+        background-color: $white;
+        border-radius: 50%;
+        box-shadow: 0px 0px 0px 3px $white;
+      }
+    }
+    .table-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      width: 100%;
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        thead,
+        tbody {
+          tr {
+            th,
+            td {
+              padding: 5px;
+              text-align: center;
+              width: 10%;
+            }
+            th:nth-child(2),
+            td:nth-child(2) {
+              width: 50%;
+            }
+            td {
+              border-top: 1px solid $regularTextColor;
+              div {
+                margin-bottom: 2px;
+              }
+            }
+          }
+          tr:hover {
+            background-color: $trHover;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 820px) {
+    section {
+      mat-form-field {
+        width: 350px;
+      }
+    }
+  }
+}
+::ng-deep mat-form-field.mat-form-field-appearance-outline {
+  .mat-form-field-wrapper {
+    padding: 0;
+
+    .mat-form-field-outline {
+      color: #1f2937;
+    }
+
+    mat-label {
+      color: #1f2937;
+    }
+
+    input.mat-input-element {
+      caret-color: #1f2937;
+    }
+  }
+}

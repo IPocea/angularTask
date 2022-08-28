@@ -1,0 +1,98 @@
+<section *ngIf="!isLoading; else loading">
+  <h2>Welcome back!</h2>
+  <h4>Number of displayed work orders:</h4>
+  <mat-form-field appearance="outline">
+    <mat-label>Search work order</mat-label>
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="searchValue"
+      (keyup.enter)="searchWorkOrder()"
+    />
+    <button
+      [ngClass]="!searchValue ? 'invisible' : ''"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="clearValue()"
+    >
+      <mat-icon title="Clear filters">close</mat-icon>
+    </button>
+    <button matSuffix mat-icon-button (click)="searchWorkOrder()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+  <div class="table-container">
+    <ng-container *ngIf="workOrders.length; else noOrders">
+      <table *ngIf="filteredWorkOrders.length; else notFound">
+        <thead>
+          <th>WO ID</th>
+          <th>Description</th>
+          <th>Received date</th>
+          <th>Assigned to</th>
+          <th>Status</th>
+          <th>Priority</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of filteredWorkOrders">
+            <td>{{ order.work_order_id }}</td>
+            <td>{{ order.description }}</td>
+            <td>{{ order.received_date }}</td>
+            <td>
+              <ng-container *ngIf="order.assigned_to.length; else notAssigned">
+                <div *ngFor="let person of order.assigned_to">
+                  {{ person.person_name }}
+                </div>
+              </ng-container>
+            </td>
+            <td
+              [ngClass]="[
+                order.status.toLowerCase() === 'confirmed'
+                  ? 'blue'
+                  : '' || order.status.toLowerCase() === 'canceled'
+                  ? 'red'
+                  : '' || order.status.toLowerCase() === 'completed'
+                  ? 'green'
+                  : ''
+              ]"
+            >
+              {{ order.status }}
+            </td>
+            <td
+              [ngClass]="[
+                order.priority.toLowerCase() === 'low'
+                  ? 'green'
+                  : '' || order.priority.toLowerCase() === 'normal'
+                  ? 'blue'
+                  : '' || order.priority.toLowerCase() === 'high'
+                  ? 'red'
+                  : ''
+              ]"
+            >
+              {{ order.priority }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </div>
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+</section>
+
+<ng-template #loading>
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+
+<ng-template #noOrders>
+  <h4>There are no orders at this time.</h4>
+</ng-template>
+
+<ng-template #notFound>
+  <h4>We found no orders by your search criteria.</h4>
+</ng-template>
+
+<ng-template #notAssigned>
+  <span class="red">Not Assigned</span>
+</ng-template>

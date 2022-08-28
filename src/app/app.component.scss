@@ -1,0 +1,24 @@
+@import "./styles/variables.scss";
+
+:host {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "header" "main" "footer";
+  header {
+    grid-area: header;
+    background-color: $primary;
+    background-image: linear-gradient(to bottom right, $primary, $darkBlue);
+    border-bottom: 1px solid #ffffff;
+  }
+  main {
+    grid-area: main;
+    background-color: $secondary;
+  }
+  footer {
+    grid-area: footer;
+    background-color: $darkBlue;
+    background-image: linear-gradient(to bottom right, $darkBlue, $primary);
+    border-top: 1px solid $white;
+  }
+}
