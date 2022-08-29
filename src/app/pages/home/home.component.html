@@ -1,6 +1,6 @@
 <section *ngIf="!isLoading; else loading">
   <h2>Welcome back!</h2>
-  <h4>Number of displayed work orders:</h4>
+  <h4>Number of displayed work orders: {{filteredWorkOrders.length}}</h4>
   <mat-form-field appearance="outline">
     <mat-label>Search work order</mat-label>
     <input
